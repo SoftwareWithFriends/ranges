@@ -1,0 +1,8 @@
+Just a simple class I wrote for time ranges. Allows asking questions like:
+
+range_1.overlaps_with?(range_2)
+range_1.disjoint_to?(range_2)
+range_1.wraps?(range_2)
+range_1.within?(range_2)
+
+check out the tests for more information.
