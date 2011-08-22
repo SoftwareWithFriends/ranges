@@ -122,6 +122,23 @@ class TimeRangeTest < Test::Unit::TestCase
     end
   end
 
+  def test_should_check_start_time
+    given_disjoint_ranges do |earlier, later|
+      assert earlier.starts_before?(later)
+      assert !later.starts_before?(earlier)
+      assert !earlier.starts_after?(later)
+      assert later.starts_after?(earlier)
+    end
+  end
+
+  def test_should_check_end_time
+    given_disjoint_ranges do |earlier, later|
+      assert earlier.ends_before?(later)
+      assert !later.ends_before?(earlier)
+      assert !earlier.ends_after?(later)
+      assert later.ends_after?(earlier)
+    end
+  end
   private
   def given_nested_ranges
     outer = TimeRange.new(utc_time_at(7), utc_time_at(10))

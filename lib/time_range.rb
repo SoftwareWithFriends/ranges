@@ -24,4 +24,20 @@ class TimeRange
   def disjoint_to?(range)
     !self.overlaps_with?(range) 
   end
+
+  def starts_before?(range)
+    start_time < range.start_time
+  end
+
+  def starts_after?(range)
+    start_time > range.start_time
+  end
+
+  def ends_before?(range)
+    end_time < range.end_time
+  end
+
+  def ends_after?(range)
+    end_time > range.end_time
+  end
 end
