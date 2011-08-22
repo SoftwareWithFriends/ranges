@@ -139,6 +139,34 @@ class TimeRangeTest < Test::Unit::TestCase
       assert later.ends_after?(earlier)
     end
   end
+
+  def test_should_be_longer_than_a_shorter_range
+    longer = TimeRange.new(utc_time_at(1), utc_time_at(3))
+    shorter = TimeRange.new(utc_time_at(4), utc_time_at(5))
+    assert longer.longer_than?(shorter)
+    assert !shorter.longer_than?(longer)
+  end
+
+  def test_should_give_number_of_seconds
+    range = TimeRange.new(utc_time_at(4), utc_time_at(5))
+    assert_equal 3600, range.length_in_seconds
+  end
+
+  def test_should_give_number_of_minutes
+    range = TimeRange.new(utc_time_at(4), utc_time_at(5))
+    assert_equal 60, range.length_in_minutes
+    range = TimeRange.new(utc_time_at(4), 
+                          utc_time_at(5,0,5,10,2010,30))
+    assert_equal 60.5, range.length_in_minutes
+  end
+
+  def test_should_give_number_of_hours
+    range = TimeRange.new(utc_time_at(4), utc_time_at(5))
+    assert_equal 1, range.length_in_hours
+    range = TimeRange.new(utc_time_at(4), 
+                          utc_time_at(5,30))
+    assert_equal 1.5, range.length_in_hours
+  end
   private
   def given_nested_ranges
     outer = TimeRange.new(utc_time_at(7), utc_time_at(10))
@@ -158,7 +186,7 @@ class TimeRangeTest < Test::Unit::TestCase
     yield(earlier, later)
   end
 
-  def utc_time_at(hour = 6, min = 0, day = 5, month = 10, year = 2010)
-    Time.utc(year, month, day, hour, min)
+  def utc_time_at(hour = 6, min = 0, day = 5, month = 10, year = 2010, sec = 0)
+    Time.utc(year, month, day, hour, min, sec)
   end
 end

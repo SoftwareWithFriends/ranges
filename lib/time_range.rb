@@ -1,6 +1,7 @@
 
 class TimeRange
   attr_reader :start_time, :end_time
+
   def initialize(start_time, end_time)
     unless start_time.is_a?(Time) && end_time.is_a?(Time)
       raise ArgumentError.new("Parameters must be time objects")
@@ -40,4 +41,20 @@ class TimeRange
   def ends_after?(range)
     end_time > range.end_time
   end
+
+  def length_in_seconds
+    end_time.to_i - start_time.to_i
+  end
+
+  def length_in_minutes
+    length_in_seconds / 60.0
+  end
+
+  def length_in_hours
+    length_in_seconds / 3600.0
+  end
+
+  def longer_than?(range)
+    length_in_seconds > range.length_in_seconds 
+  end 
 end
