@@ -1,11 +1,14 @@
 
 class TimeRange
+  TIME_REQUIRED = "Parameters must be time objects"
+  START_BEFORE_END = "Start time must come before end time"
   attr_reader :start_time, :end_time
 
   def initialize(start_time, end_time)
     unless start_time.is_a?(Time) && end_time.is_a?(Time)
-      raise ArgumentError.new("Parameters must be time objects")
+      raise ArgumentError.new(TIME_REQUIRED)
     end
+    raise ArgumentError.new(START_BEFORE_END) unless start_time < end_time
     @start_time = start_time
     @end_time = end_time
   end
