@@ -1,3 +1,4 @@
+require 'date'
 
 class TimeRange
   TIME_REQUIRED = "Parameters must be time objects"
@@ -11,6 +12,14 @@ class TimeRange
     raise ArgumentError.new(START_BEFORE_END) unless start_time < end_time
     @start_time = start_time
     @end_time = end_time
+  end
+
+  def start_date
+    start_time.to_date
+  end
+
+  def end_date
+    end_time.to_date
   end
 
   def overlaps_with?(range)

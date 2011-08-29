@@ -11,6 +11,14 @@ class TimeRangeTest < Test::Unit::TestCase
     assert_equal ends, range.end_time
   end
 
+  def test_should_allow_taking_start_and_end_to_dates
+    starts = utc_time_at(3)
+    ends = utc_time_at(4)
+    range = TimeRange.new(starts, ends)
+    assert_equal starts.to_date, range.start_date
+    assert_equal ends.to_date, range.end_date
+  end
+
   def test_requires_start_to_be_before_end
     e = assert_raise ArgumentError do
       TimeRange.new(utc_time_at(3), utc_time_at(1))
