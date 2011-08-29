@@ -1,5 +1,5 @@
 require 'test/unit'
-require_relative '../lib/time_range.rb'
+require_relative '../lib/ranges.rb'
 
 class TimeRangeTest < Test::Unit::TestCase
 
